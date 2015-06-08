@@ -11,6 +11,6 @@ A file storage and sharing solution that is eventually good to have... maybe.
 - [ ] scp interface
 - [ ] invent
 
-## Licence
+## License
 
 a2p is free software in the terms of the GPLv3 licence.
