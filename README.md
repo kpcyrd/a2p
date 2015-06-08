@@ -10,3 +10,7 @@ A file storage and sharing solution that is eventually good to have... maybe.
 - [ ] auto torrent
 - [ ] scp interface
 - [ ] invent
+
+## Licence
+
+a2p is free software in the terms of the GPLv3 licence.
