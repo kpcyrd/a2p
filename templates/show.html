@@ -1,8 +1,11 @@
 {% extends 'layout.html' %}
 {% block content %}
 {% set hash = name.split('.')[0] %}
+<div class="fallback">
 <p>/q/{{ name }}</p>
+<p>Direct link: <input readonly value="{{ base }}/q/{{ name }}">
 <p>Join the swarm: <input readonly value="magnet:?xt=urn:{{ hash }}&amp;ws={{ base }}/q/{{ name }}"></p>
 <p><a href="/static/storage/{{name}}">Download</a></p>
+</div>
 {% endblock %}
 
