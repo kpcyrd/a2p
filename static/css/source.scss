@@ -2,7 +2,14 @@
     max-width: 400px;
 
     input {
+        margin-left: 50px;
         width: 100%;
+    }
+
+    input[readonly] {
+        position: absolute;
+        left: 100px;
+        width: 300px;
     }
 }
 

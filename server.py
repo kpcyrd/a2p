@@ -16,7 +16,7 @@ def index():
 
 @app.route('/q/<name>')
 def show(name):
-    return render_template('show.html', name=name)
+    return render_template('show.html', name=name, base=app.config['BASE'])
 
 
 @app.route('/send', methods=['POST'])
