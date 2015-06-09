@@ -1,0 +1,5 @@
+*.swp
+*.py[co]
+/static/*/build.*
+/static/storage/
+/.sass-cache/

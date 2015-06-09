@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="fallback">
+<h1>a2p</h1>
+
+<p>Information wants to be free</p>
+
+<form method="post" action="/send" enctype="multipart/form-data">
+    <p><input type="file" name="file"></p>
+    <p><input type="submit" value="Upload"></p>
+</form>
+</div>
+{% endblock %}
