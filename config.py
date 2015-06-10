@@ -12,11 +12,14 @@ EXTENSIONS = [
     'tar.xz',
     'tar.lzma2',
     'jpg',
+    'jpeg',
     'png',
     'gif',
     'webm',
     'gifv',
     'mp4',
+    'mp3',
+    'mpeg',
     'ogv',
     'ogg',
     'flac',
@@ -24,5 +27,7 @@ EXTENSIONS = [
     'gpg',
     'asc',
     'txt',
+    'md',
+    'pdf',
 ]
 
