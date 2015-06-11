@@ -1,10 +1,10 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="fallback">
-<p>/q/{{ name }}</p>
-<p>Direct link: <input readonly value="{{ config.BASE }}/{{ config.STORAGE_LINK }}/{{ name }}">
-<p>Join the swarm: <a href="/{{ config.STORAGE_LINK }}/{{ name }}.torrent">Get torrent</a></p>
-<p><a href="/{{ config.STORAGE_LINK }}/{{ name }}">Download</a></p>
+<p>{{ file.real_name }} -&gt; /q/{{ file.name }}</p>
+<p>Direct link: <input readonly value="{{ file.direct }}">
+<p>Join the swarm: <a href="{{ file.torrent }}">Get torrent</a></p>
+<p><a href="{{ file.direct }}">Download</a></p>
 </div>
 {% endblock %}
 

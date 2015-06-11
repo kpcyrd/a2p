@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 from flask import Flask, render_template, request, redirect, abort
+from urllib import urlencode
+from urlparse import urljoin
 from uuid import uuid4
 import hashlib
 import shutil
+import utils
 import os
 import re
 
@@ -10,19 +13,51 @@ app = Flask(__name__)
 app.config.from_object('config')
 
 
-def find(name):
+def find(name, real_name=None):
     hash = name.split('.')[0]
-    print(hash)
 
     if not re.match('^[a-f0-9]{40}$', hash):
         return
 
     path = os.path.join(app.config['STORAGE_FOLDER'], hash)
-    print(path)
     if not os.path.exists(path):
         return
 
-    return path
+    return File(name, path, real_name)
+
+
+class File(object):
+    def __init__(self, name, path, real_name=None, config=app.config):
+        self.config = config
+
+        self.path = path
+        self.name = name
+        self.real_name = real_name
+        self.sha1 = self.name.split('.')[0]
+        self.storage_folder = self.config['STORAGE_FOLDER']
+
+        self.direct = self.named_storage(self.name)
+        self.show = self.named_link('q', self.name)
+        self.torrent = self.named_link('q', self.name + '.torrent')
+        self.blob = self.storage(self.sha1)
+
+    def named_storage(self, name, **kwargs):
+        return self.storage(name, n=self.real_name, **kwargs)
+
+    def storage(self, name, **kwargs):
+        return self.link(self.config['STORAGE_LINK'], name, **kwargs)
+
+    def named_link(self, *path, **kwargs):
+        return self.link(*path, n=self.real_name, **kwargs)
+
+    def link(self, *path, **kwargs):
+        url = self.config['BASE'] + '/'.join([''] + list(path))
+        if kwargs:
+            url += '?' + urlencode(kwargs)
+        return url
+
+    def make_torrent(self):
+        return utils.make_torrent(self)
 
 
 @app.route('/')
@@ -32,37 +67,29 @@ def index():
 
 @app.route('/q/<name>')
 def show(name):
-    path = find(name)
+    real_name = request.args.get('n')
+    file = find(name, real_name)
 
-    if not path:
+    if not file:
         abort(404)
 
-    return render_template('show.html', name=name, config=app.config)
+    return render_template('show.html', file=file)
 
 
 @app.route('/q/<name>.torrent')
 def torrent(name):
-    path = find(name)
+    print(name)
+    real_name = request.args.get('n')
+    file = find(name, real_name)
 
-    if not path:
+    if not file:
         abort(404)
 
-    import libtorrent as lt
-
-    fs = lt.file_storage()
-    piece_size = 256 * 1024
-    lt.add_files(fs, path)
-
-    t = lt.create_torrent(fs, piece_size)
-    lt.set_piece_hashes(t, app.config['STORAGE_FOLDER'])
-    t.add_url_seed(app.config['BASE'] + '/static/storage/' + os.path.basename(path))
-    t.set_creator('a2p')
-
-    torrent = lt.bencode(t.generate())
     headers = {
         'Content-Type': 'application/x-bittorrent',
     }
-    return torrent, 200, headers
+
+    return file.make_torrent(), 200, headers
 
 
 @app.route('/send', methods=['POST'])
@@ -95,7 +122,7 @@ def send():
             name += '.' + ext
             break
 
-    return redirect('/q/%s' % name)
+    return redirect('/q/%s?%s' % (name, urlencode({'n': file.filename})))
 
 
 if __name__ == '__main__':
