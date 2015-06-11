@@ -78,7 +78,6 @@ def show(name):
 
 @app.route('/q/<name>.torrent')
 def torrent(name):
-    print(name)
     real_name = request.args.get('n')
     file = find(name, real_name)
 
