@@ -4,9 +4,25 @@ from uuid import uuid4
 import hashlib
 import shutil
 import os
+import re
 
 app = Flask(__name__)
 app.config.from_object('config')
+
+
+def find(name):
+    hash = name.split('.')[0]
+    print(hash)
+
+    if not re.match('^[a-f0-9]{40}$', hash):
+        return
+
+    path = os.path.join(app.config['STORAGE_FOLDER'], hash)
+    print(path)
+    if not os.path.exists(path):
+        return
+
+    return path
 
 
 @app.route('/')
@@ -17,6 +33,31 @@ def index():
 @app.route('/q/<name>')
 def show(name):
     return render_template('show.html', name=name, base=app.config['BASE'])
+
+
+@app.route('/q/<name>.torrent')
+def torrent(name):
+    path = find(name)
+
+    if not path:
+        return ''
+
+    import libtorrent as lt
+
+    fs = lt.file_storage()
+    piece_size = 256 * 1024
+    lt.add_files(fs, path)
+
+    t = lt.create_torrent(fs, piece_size)
+    lt.set_piece_hashes(t, app.config['STORAGE_FOLDER'])
+    t.add_url_seed(app.config['BASE'] + '/static/storage/' + os.path.basename(path))
+    t.set_creator('a2p')
+
+    torrent = lt.bencode(t.generate())
+    headers = {
+        'Content-Type': 'application/x-bittorrent',
+    }
+    return torrent, 200, headers
 
 
 @app.route('/send', methods=['POST'])

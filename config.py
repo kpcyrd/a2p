@@ -1,4 +1,4 @@
-BASE = 'https://localhost'
+BASE = 'http://localhost'
 
 UPLOAD_FOLDER = '/var/tmp/'
 STORAGE_FOLDER = 'static/storage/'
