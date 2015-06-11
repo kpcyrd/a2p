@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, abort
 from uuid import uuid4
 import hashlib
 import shutil
@@ -32,7 +32,12 @@ def index():
 
 @app.route('/q/<name>')
 def show(name):
-    return render_template('show.html', name=name, base=app.config['BASE'])
+    path = find(name)
+
+    if not path:
+        abort(404)
+
+    return render_template('show.html', name=name, config=app.config)
 
 
 @app.route('/q/<name>.torrent')
@@ -40,7 +45,7 @@ def torrent(name):
     path = find(name)
 
     if not path:
-        return ''
+        abort(404)
 
     import libtorrent as lt
 

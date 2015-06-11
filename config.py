@@ -1,4 +1,5 @@
 BASE = 'http://localhost'
+STORAGE_LINK = 'static/storage'
 
 UPLOAD_FOLDER = '/var/tmp/'
 STORAGE_FOLDER = 'static/storage/'

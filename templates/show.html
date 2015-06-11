@@ -2,9 +2,9 @@
 {% block content %}
 <div class="fallback">
 <p>/q/{{ name }}</p>
-<p>Direct link: <input readonly value="{{ base }}/q/{{ name }}">
-<p>Join the swarm: <a href="/q/{{ name }}.torrent">Get torrent</a></p>
-<p><a href="/static/storage/{{ name }}">Download</a></p>
+<p>Direct link: <input readonly value="{{ config.BASE }}/{{ config.STORAGE_LINK }}/{{ name }}">
+<p>Join the swarm: <a href="/{{ config.STORAGE_LINK }}/{{ name }}.torrent">Get torrent</a></p>
+<p><a href="/{{ config.STORAGE_LINK }}/{{ name }}">Download</a></p>
 </div>
 {% endblock %}
 
