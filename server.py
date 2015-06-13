@@ -73,7 +73,11 @@ def show(name):
     if not file:
         abort(404)
 
-    return render_template('show.html', file=file)
+    headers = {
+        'X-Direct': file.direct,
+        'X-Torrent': file.torrent,
+    }
+    return render_template('show.html', file=file), 200, headers
 
 
 @app.route('/q/<name>.torrent')
