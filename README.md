@@ -6,7 +6,7 @@ A file storage and sharing solution that is eventually good to have... maybe.
 ## // TODO:
 
 - [X] basic upload
-- [ ] fancy html5 file upload
+- [x] fancy html5 file upload
 - [ ] webrtc seeding swarm
 - [X] auto torrent
 - [ ] scp interface

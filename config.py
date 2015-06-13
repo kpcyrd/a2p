@@ -4,8 +4,8 @@ STORAGE_LINK = 'static/storage'
 UPLOAD_FOLDER = '/var/tmp/'
 STORAGE_FOLDER = 'static/storage/'
 
-MAX_CONTENT_LENGTH = 42 * 1024 * 1024
-CHUNKS = 2 ** 10
+MAX_CONTENT_LENGTH = 2 * 1024 * 1024 * 1024
+CHUNKS = 2 ** 20 * 10
 
 # TODO: add extensions
 EXTENSIONS = [

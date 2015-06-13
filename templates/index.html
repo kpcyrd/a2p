@@ -7,7 +7,8 @@
 
 <form method="post" action="/send" enctype="multipart/form-data">
     <p><input type="file" name="file"></p>
-    <p><input type="submit" value="Upload"></p>
+    <p><input id="submit" type="submit" value="Upload"></p>
+    <p><progress id="progress" hidden></p>
 </form>
 </div>
 {% endblock %}
