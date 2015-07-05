@@ -40,7 +40,8 @@ window.onload = function()  {
         };
 
         var hashFile = function(file, cb) {
-            var sha1 = require('crypto').createHash('sha1');
+            var h = require('sha.js/sha1');
+            var sha1 = new h();
 
             streamFile(file, {
                 chunk: function(chunk) {
