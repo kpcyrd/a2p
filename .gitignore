@@ -3,3 +3,4 @@
 /static/*/build.*
 /static/storage/
 /.sass-cache/
+/node_modules/
