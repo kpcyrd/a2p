@@ -10,7 +10,7 @@ for file; do
         if ! loc=`curl -Gfs --data-urlencode "n=$name" -- "$url/has/$sha1"` > /dev/null; then
             curl -# -F "file=@$file" -- "$url/send" > /dev/null
         else
-            echo "$file: $loc"
+            echo "$loc"
             break
         fi
     done
