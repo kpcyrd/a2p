@@ -1,0 +1,17 @@
+#!/bin/sh
+url=$1
+shift;
+
+for file; do
+    sha1=`sha1sum -- "$file" | grep -Eo '^\S+'`
+    name=`basename -- "$file"`
+
+    for _ in `seq 2`; do
+        if ! loc=`curl -Gfs --data-urlencode "n=$name" -- "$url/has/$sha1"` > /dev/null; then
+            curl -# -F "file=@$file" -- "$url/send" > /dev/null
+        else
+            echo "$file: $loc"
+            break
+        fi
+    done
+done
