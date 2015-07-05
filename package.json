@@ -1,0 +1,18 @@
+{
+  "name": "a2p",
+  "version": "0.0.0",
+  "description": "Content addressable one click hoster. Features true progressive enhancement javascript and scriptability.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/telekollektiv/a2p.git"
+  },
+  "author": "",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/telekollektiv/a2p/issues"
+  }
+}
