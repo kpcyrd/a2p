@@ -1,7 +1,6 @@
 # a2p
-a2p: fancy html5 file upload, webrtc seeding swarm, auto torrent and scp interface on steroids.
 
-A file storage and sharing solution that is eventually good to have... maybe.
+Content addressable one click hoster. Features true progressive enhancement javascript and scriptability (see `bin/a2p2`).
 
 ## // TODO:
 
@@ -11,6 +10,15 @@ A file storage and sharing solution that is eventually good to have... maybe.
 - [X] auto torrent
 - [ ] scp interface
 - [ ] invent
+
+## a2p2
+
+```sh
+bin/a2p2 http://127.0.0.1:5000 file1 file2 # uploads file1 and file2 to http://127.0.0.1:5000/
+all_proxy=socks4a://127.0.0.1:9050 bin/a2p2 http://127.0.0.1:5000 file1 file2 # uploads with proxy
+sudo install bin/a2p2 /usr/bin/a2p2 # install for all users as `a2p2`
+alias a2p2x='all_proxy=socks4a://127.0.0.1:9050 a2p2 http://localhost:5000' # add shorthand `a2p2x file1 file2`
+```
 
 ## License
 
