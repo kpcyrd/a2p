@@ -14,5 +14,8 @@
   "license": "GPLv3",
   "bugs": {
     "url": "https://github.com/telekollektiv/a2p/issues"
+  },
+  "dependencies": {
+    "browserify": "^10.2.4"
   }
 }
