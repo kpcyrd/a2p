@@ -95,6 +95,17 @@ def torrent(name):
     return file.make_torrent(), 200, headers
 
 
+@app.route('/has/<name>')
+def has(name):
+    real_name = request.args.get('n')
+    file = find(name, real_name)
+
+    if not file:
+        abort(404)
+
+    return file.show, 302, {'Location': file.show}
+
+
 @app.route('/send', methods=['POST'])
 def send():
     file = request.files['file']
