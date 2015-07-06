@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "browserify": "^10.2.4",
-    "minify": "^1.4.19"
+    "minify": "^1.4.19",
+    "sha.js": "^2.4.2"
   }
 }
