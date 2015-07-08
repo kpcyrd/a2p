@@ -8,3 +8,7 @@ static/js/build.js: static/js/source.js
 
 static/css/build.css: static/css/source.scss
 	node_modules/node-sass/bin/node-sass --output-style compressed $^ > $@
+
+.PHONY: clean
+clean:
+	rm -- static/*/build.*
