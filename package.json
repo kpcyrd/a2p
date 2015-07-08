@@ -18,6 +18,7 @@
   "dependencies": {
     "browserify": "^10.2.4",
     "minify": "^1.4.19",
+    "node-sass": "^3.2.0",
     "sha.js": "^2.4.2"
   }
 }
